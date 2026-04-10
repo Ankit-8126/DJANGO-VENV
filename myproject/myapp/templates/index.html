@@ -1,13 +1,221 @@
-{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <title>Exclusive For Gunjan Agrawal ❤️</title>
+    
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --accent: #ff4d6d;
+            --dark-pink: #c9184a;
+            --bg: #fff0f3;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg);
+            background-image: radial-gradient(#ffb3c1 0.5px, transparent 0.5px);
+            background-size: 30px 30px;
+            font-family: 'Poppins', sans-serif;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .main-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(15px);
+            width: 95%;
+            max-width: 450px;
+            padding: 40px 30px;
+            border-radius: 30px;
+            box-shadow: 0 20px 50px rgba(255, 77, 109, 0.2);
+            border: 2px solid white;
+            text-align: center;
+            position: relative;
+        }
+
+        .step { display: none; }
+        .active { display: block; animation: fadeIn 0.8s ease; }
+
+        h1 { font-family: 'Dancing Script', cursive; color: var(--dark-pink); font-size: 2.6rem; margin-bottom: 15px; }
+        p { color: #444; line-height: 1.6; margin-bottom: 25px; font-size: 1.05rem; }
+
+        .btn-next {
+            background: var(--accent);
+            color: white;
+            padding: 12px 35px;
+            border-radius: 50px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            transition: 0.3s;
+            box-shadow: 0 10px 20px rgba(255, 77, 109, 0.3);
+        }
+
+        /* FIXED: Propose Section Layout */
+        .btn-wrapper {
+            position: relative;
+            height: 200px;
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: rgba(255, 77, 109, 0.03);
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .proposal-btn {
+            padding: 12px 35px;
+            border-radius: 50px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: all 0.1s ease-out;
+        }
+
+        /* YES Button stays on top */
+        #yesBtn { 
+            background: var(--accent); 
+            color: white; 
+            z-index: 100; 
+            position: relative; 
+            box-shadow: 0 8px 15px rgba(255, 77, 109, 0.3);
+        }
+        
+        /* NO Button stays below and improved styling */
+        #noBtn { 
+            background: white; 
+            color: var(--accent); 
+            border: 1.5px solid var(--accent); 
+            position: absolute; 
+            z-index: 10; /* Lower than YES when needed */
+            white-space: nowrap;
+            left: 70%; /* Initial position offset */
+        }
+
+        .gift-img, .ring-img { width: 100px; margin: 20px auto; display: block; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
 </head>
 <body>
-    <h1>Hello Coders !</h1>
+
+    <div class="main-card animate__animated animate__zoomIn">
+        
+        <div id="step1" class="step active">
+            <h1>Dear Gunjan,</h1>
+            <p>"Tumhari sadgi aur tumhari bhalai hi wo cheez hai jo tumhe mere liye sabse khaas banati hai. Gunjan, tumhare saath hone se mera har din behtar ban jata hai."</p>
+            <button class="btn-next" onclick="nextStep(2)">I have a surprise for you ✨</button>
+        </div>
+
+        <div id="step2" class="step">
+            <h1>For You, Gunjan</h1>
+            <p>Mera ek chota sa tohfa... <br> Tap to open!</p>
+            <img src="https://cdn-icons-png.flaticon.com/512/4213/4213958.png" class="gift-img" onclick="openGift()" style="cursor:pointer;" alt="Gift">
+        </div>
+
+        <div id="step3" class="step">
+            <h1>Gunjan Agrawal</h1>
+            <p>I want to cherish every moment with you. <br> Kya tum humari is dosti ko ek naya naam dogi?</p>
+            
+            <img src="https://cdn-icons-png.flaticon.com/512/2611/2611843.png" class="ring-img" alt="Ring Box">
+            
+            <p style="font-weight: 600; color: var(--dark-pink); margin-bottom: 10px;">Will you be mine forever? ❤️</p>
+
+            <div class="btn-wrapper" id="moveArea">
+                <button class="proposal-btn" id="yesBtn">YES! I Will</button>
+                <button class="proposal-btn" id="noBtn">No</button>
+            </div>
+        </div>
+
+        <div id="step4" class="step">
+            <h1 style="font-size: 3rem;">SHE SAID YES! 💍</h1>
+            <img src="https://cdn-icons-png.flaticon.com/512/2611/2611833.png" width="100" style="margin-bottom: 20px;">
+            <p>Gunjan, I promise to keep you happy always. <br> This is the best moment of my life!</p>
+        </div>
+
+    </div>
+
+    <script>
+        function nextStep(n) {
+            document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+            document.getElementById('step' + n).classList.add('active');
+        }
+
+        function openGift() {
+            confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 }, colors: ['#ff4d6d', '#ffffff'] });
+            setTimeout(() => nextStep(3), 1200);
+        }
+
+        // --- NO BUTTON IMPROVED LOGIC ---
+        const noBtn = document.getElementById('noBtn');
+        const moveArea = document.getElementById('moveArea');
+        let currentScale = 1;
+
+        function moveNo() {
+            const maxX = moveArea.clientWidth - noBtn.offsetWidth;
+            const maxY = moveArea.clientHeight - noBtn.offsetHeight;
+
+            // Random position
+            const randomX = Math.floor(Math.random() * maxX);
+            const randomY = Math.floor(Math.random() * maxY);
+
+            noBtn.style.left = randomX + 'px';
+            noBtn.style.top = randomY + 'px';
+
+            // Shrink effect to make it impossible to catch
+            if (currentScale > 0.4) {
+                currentScale -= 0.1;
+                noBtn.style.transform = `scale(${currentScale})`;
+            }
+        }
+
+        // Mouse hover pe bhagega
+        noBtn.addEventListener('mouseover', moveNo);
+        
+        // Touch screens fix
+        noBtn.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            moveNo();
+        });
+
+        // Click fail-safe
+        noBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            alert("Error 404: 'No' not found! Try the other button. 😉");
+            moveNo();
+        });
+
+        // YES BUTTON - SUCCESS LOGIC
+        document.getElementById('yesBtn').addEventListener('click', () => {
+            nextStep(4);
+            
+            // Backend Call (Verify your URL and CSRF)
+            fetch('/save-response/', {
+                method: 'POST',
+                headers: { 'X-CSRFToken': '{{ csrf_token }}' },
+                body: new URLSearchParams({ 'status': 'ACCEPTED', 'name': 'Gunjan Agrawal' })
+            });
+
+            // Fireworks
+            const end = Date.now() + (6 * 1000);
+            (function frame() {
+                confetti({ particleCount: 4, angle: 60, spread: 55, origin: { x: 0 }, colors: ['#ff4d6d'] });
+                confetti({ particleCount: 4, angle: 120, spread: 55, origin: { x: 1 }, colors: ['#ff4d6d'] });
+                if (Date.now() < end) requestAnimationFrame(frame);
+            }());
+        });
+    </script>
 </body>
 </html>
